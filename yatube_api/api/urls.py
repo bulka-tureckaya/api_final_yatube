@@ -1,19 +1,21 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from api.views import CommentViewSet, FollowViewSet, GroupViewSet, PostViewSet
+from .views import CommentViewSet, FollowViewSet, GroupViewSet, PostViewSet
 
-router = DefaultRouter()
-
-router.register(r'^posts', PostViewSet, basename='post')
-router.register(r'^groups', GroupViewSet, basename='group')
-router.register(
-    r'^posts/(?P<post_id>\d+)/comments', CommentViewSet, basename='comment'
-)
-router.register(r'^follow', FollowViewSet, basename='follow')
+# Создаётся роутер
+v1_router = DefaultRouter()
+# Вызываем метод .register с нужными параметрами
+v1_router.register('posts', PostViewSet, basename='posts')
+v1_router.register('groups', GroupViewSet, basename='groups')
+v1_router.register(r'posts/(?P<post_id>\d+)/comments', CommentViewSet,
+                   basename='comments')
+v1_router.register('follow', FollowViewSet, basename='follow')
 
 urlpatterns = [
-    path('v1/', include(router.urls)),
+    path('v1/', include(v1_router.urls)),
+    # базовые, для управления пользователями в Django:
     path('v1/', include('djoser.urls')),
+    # JWT-эндпоинты, для управления JWT-токенами:
     path('v1/', include('djoser.urls.jwt')),
 ]
