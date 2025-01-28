@@ -45,7 +45,8 @@ class GroupViewSet(viewsets.ModelViewSet):
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
-class FollowViewSet( mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet):
+class FollowViewSet(mixins.ListModelMixin,
+                    mixins.CreateModelMixin, viewsets.GenericViewSet):
     http_method_names = ['get', 'post']
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = FollowSerializer
