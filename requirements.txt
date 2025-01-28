@@ -1,4 +1,4 @@
-Django
+Django==2.2.16
 pytest
 pytest-pythonpath
 pytest-django
