@@ -1,165 +1,100 @@
-# api_final
-api final
+# api_final_yatube
 
-Разворачиваем проект:
+### Описание:
 
-Клонировать репозиторий и перейти в него в командной строке:
+Финальная часть учебного проекта социальной сети, в которой есть возможность публиковать записи, комментировать их и подписываться/отписываться от авторов.
 
-<code>git clone https://github.com/kultmet/api_final_yatube.git</code><br>
+### Технологии:
 
-<code>cd <ваша_папка></code><br>
+Python 3.7, Django 2.2, DRF, JWT
 
-Cоздать и активировать виртуальное окружение:<br>
+### Как запустить проект:
 
-<code>python3 -m venv env</code><br>
+Клонируй репозиторий и перейди в него в командной строке:
 
-<code>source env/bin/activate</code><br>
+```git clone https://github.com/sergeypatrakov/api_final_yatube```
 
-Установить зависимости из файла requirements.txt:<br>
+``` cd api_final_yatube```
 
-<code>python3 -m pip install --upgrade pip</code><br>
+Cоздай и активируй виртуальное окружение:
 
-<code>pip install -r requirements.txt</code><br>
+```python3 -m venv venv```
 
-Выполнить миграции:<br>
+* Если у тебя Linux/macOS
 
-<code>python3 manage.py migrate</code><br>
+    ```source venv/bin/activate```
 
-Запустить проект:<br>
+* Если у тебя windows
 
-<code>python3 manage.py runserver</code>
+    ```source env/scripts/activate```
 
-<h1>Описание</h1>
-Здесь вы можете совершать определенные действия с обьектами:<br>
+```python3 -m pip install --upgrade pip```
 
-| Endpoint | Object | Methods | Description |
-| --- | --- | --- | --- |
-| /api/v1/posts/ | Post | GET, POST | Получаем список постов и создаем пост. |
-| /api/v1/posts/{id}/ | Post | GET, PUT, PATCH, DELETE | Получаем, редактируем, заменяем, отдельный пост. |
-| /api/v1/posts/{post_id}/comments/ | Comment | GET, POST | Получаем список комментариев и создаем комментарий к конкретному посту |
-| /api/v1/posts/{post_id}/comments/{id}/ | Comment | GET, PUT, PATCH, DELETE | Получаем, редактируем, заменяем, отдельный комментарий и конкретному посту. |
-| /api/v1/groups/ | Group | GET | Получаем список групп. Только чтоние |
-| /api/v1/groups/{id}/ | Group | GET | Получаем конкретную группу. Только чтоние |
-| /api/v1/follow/ | Follow | GET, POST | Получаем все подписки пользователя сделавшего GET запрос. Подписываемся на другого пользователя. Подписыватся на себя безсмысленно |
-| /api/v1/jwt/create/ | Token | POST | Получаем токен |
-| /api/v1/jwt/refresh/ | Token | POST | Обновляем токен |
-| /api/v1/jwt/verify/ | Token | POST | Проверяем токен |
-<h2>Примеры ответа</h2><br?
-*Используется гибкая пагинация*<br>
- GET запрос<br>
- /api/v1/posts/
-<pre><code>
-{
-  "count": 123,
-  "next": "http://api.example.org/accounts/?offset=400&limit=100",
-  "previous": "http://api.example.org/accounts/?offset=200&limit=100",
-  "results": [
-    {
-      "id": 0,
-      "author": "string",
-      "text": "string",
-      "pub_date": "2021-10-14T20:41:29.648Z",
-      "image": "string",
-      "group": 0
-    }
-  ]
-}
-</code></pre>
+Установи зависимости из файла requirements.txt:
 
-POST запрос<br>
-/api/v1/posts/
-<pre><code>
-{
-  "text": "string",
-  "image": "string",
-  "group": 0
-}
-</code></pre>
-Пример ответа.
-<pre><code>
-{
-  "id": 0,
-  "author": "string",
-  "text": "string",
-  "pub_date": "2022-09-21T19:57:45.329Z",
-  "image": "string",
-  "group": 0
-}
-</code></pre>
-_Остальные примеры запросов и ответов можно посмотреть в файле \api_final_yatube\yatube_api\static\redoc.yaml_ <br>
-**Спасибо что пользуетесь нашими сервисами!**
->>>>>>> 8b664a98c17470cdc8217363e17a48deddb29612
+```pip install -r requirements.txt```
 
-Установить зависимости из файла requirements.txt:<br>
+Выполни миграции:
 
-<code>python3 -m pip install --upgrade pip</code><br>
+```python3 manage.py migrate```
 
-<code>pip install -r requirements.txt</code><br>
+Запусти проект:
 
-Выполнить миграции:<br>
+```python3 manage.py runserver```
 
-<code>python3 manage.py migrate</code><br>
+Наслаждайся)
 
-Запустить проект:<br>
+### Автор:
 
-<code>python3 manage.py runserver</code>
+[Сергей Патраков](https://github.com/sergeypatrakov)
 
-<h1>Описание</h1>
-Здесь вы можете совершать определенные действия с обьектами:<br>
+____
 
-| Endpoint | Object | Methods | Description |
-| --- | --- | --- | --- |
-| /api/v1/posts/ | Post | GET, POST | Получаем список постов и создаем пост. |
-| /api/v1/posts/{id}/ | Post | GET, PUT, PATCH, DELETE | Получаем, редактируем, заменяем, отдельный пост. |
-| /api/v1/posts/{post_id}/comments/ | Comment | GET, POST | Получаем список комментариев и создаем комментарий к конкретному посту |
-| /api/v1/posts/{post_id}/comments/{id}/ | Comment | GET, PUT, PATCH, DELETE | Получаем, редактируем, заменяем, отдельный комментарий и конкретному посту. |
-| /api/v1/groups/ | Group | GET | Получаем список групп. Только чтоние |
-| /api/v1/groups/{id}/ | Group | GET | Получаем конкретную группу. Только чтоние |
-| /api/v1/follow/ | Follow | GET, POST | Получаем все подписки пользователя сделавшего GET запрос. Подписываемся на другого пользователя. Подписыватся на себя безсмысленно |
-| /api/v1/jwt/create/ | Token | POST | Получаем токен |
-| /api/v1/jwt/refresh/ | Token | POST | Обновляем токен |
-| /api/v1/jwt/verify/ | Token | POST | Проверяем токен |
-<h2>Примеры ответа</h2><br?
-*Используется гибкая пагинация*<br>
- GET запрос<br>
- /api/v1/posts/
-<pre><code>
-{
-  "count": 123,
-  "next": "http://api.example.org/accounts/?offset=400&limit=100",
-  "previous": "http://api.example.org/accounts/?offset=200&limit=100",
-  "results": [
-    {
-      "id": 0,
-      "author": "string",
-      "text": "string",
-      "pub_date": "2021-10-14T20:41:29.648Z",
-      "image": "string",
-      "group": 0
-    }
-  ]
-}
-</code></pre>
+# api_final_yatube
 
-POST запрос<br>
-/api/v1/posts/
-<pre><code>
-{
-  "text": "string",
-  "image": "string",
-  "group": 0
-}
-</code></pre>
-Пример ответа.
-<pre><code>
-{
-  "id": 0,
-  "author": "string",
-  "text": "string",
-  "pub_date": "2022-09-21T19:57:45.329Z",
-  "image": "string",
-  "group": 0
-}
-</code></pre>
-_Остальные примеры запросов и ответов можно посмотреть в файле \api_final_yatube\yatube_api\static\redoc.yaml_ <br>
-**Спасибо что пользуетесь нашими сервисами!**
+### Description:
+
+The final part of the Yandex.Practicum education project. Social network, in which it is possible to publish entries, comment on them and subscribe / unsubscribe from the authors.
+
+### Tech:
+
+Python 3.7, Django 2.2, DRF, JWT
+
+### Installation instructions:
+
+Clone the repository and go to the command line:
+
+```git clone https://github.com/sergeypatrakov/api_final_yatube```
+
+```cd api_final_yatube```
+
+Create and activate a virtual environment:
+
+```python 3 -m venv venv```
+
+* If you have Linux/mac OS
+
+    ```source venv/bin/activate```
+
+* If you have windows
+
+    ```source env/scripts/activate```
+    ```python3 -m pip install --upgrade pip```
+
+Install the dependencies from the file requirements.txt:
+
+```pip install -r requirements.txt```
+
+Perform migrations:
+
+```python3 manage.py migrate```
+
+Launch the project:
+
+```python3 manage.py runserver```
+
+Enjoy)
+
+### Author
+
+[Sergey Patrakov](https://github.com/sergeypatrakov)
