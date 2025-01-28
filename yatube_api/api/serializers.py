@@ -1,8 +1,10 @@
-from rest_framework import serializers
+from django.contrib.auth import get_user_model
+from rest_framework import serializers, validators
 from rest_framework.relations import SlugRelatedField
-from rest_framework.validators import UniqueTogetherValidator
 
-from posts.models import Comment, Follow, Group, Post, User
+from posts.models import Comment, Post, Group, Follow
+
+User = get_user_model()
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -11,12 +13,6 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = Post
-
-
-class GroupSerializer(serializers.ModelSerializer):
-    class Meta:
-        fields = '__all__'
-        model = Group
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -29,29 +25,37 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
 
 
+class GroupSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        fields = ('id', 'title', 'slug', 'description',)
+        model = Group
+
+
 class FollowSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(
         read_only=True,
-        slug_field='username',
-        default=serializers.CurrentUserDefault()
+        default=serializers.CurrentUserDefault(),
+        slug_field='username'
     )
     following = serializers.SlugRelatedField(
-        slug_field='username',
-        queryset=User.objects.all()
+        queryset=User.objects.all(),
+        slug_field='username'
     )
 
     class Meta:
-        fields = '__all__'
+        fields = ('user', 'following')
         model = Follow
         validators = [
-            UniqueTogetherValidator(
+            validators.UniqueTogetherValidator(
                 queryset=Follow.objects.all(),
-                fields=['user', 'following']
+                fields=('user', 'following')
             )
         ]
 
     def validate_following(self, value):
-        if value == self.context['request'].user:
+        if value == self._context['request'].user:
             raise serializers.ValidationError(
-                'Подписываться на себя нельзя!')
+                "На себя подписываться безсмысленно!"
+            )
         return value

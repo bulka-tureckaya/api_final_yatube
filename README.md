@@ -1,137 +1,165 @@
+# api_final
+api final
 
-
-<h2 align="center">Проект «API для _Yatube_»</h2>
-
-### Описание
-Добро пожаловать **«API для _Yatube_»**!<br>
-Благодаря этому проекту появилась возможность обращаться к API социальной сети для блогеров _Yatube_ и делать различные запросы к нему.<br>
-Эта документация должна помочь вам ознакомиться с доступными ресурсами и с тем, как использовать их с помощью HTTP-запросов.
-
-### Технологии
-Python 3.7<br>
-Django 2.2.16<br>
-Django Rest Framework (DRF) 3.12.4<br>
-
-
-### Как запустить проект в dev-режиме:
+Разворачиваем проект:
 
 Клонировать репозиторий и перейти в него в командной строке:
 
-```
-git clone https://github.com/AngelNad/api_final_yatube.git
-```
+<code>git clone https://github.com/kultmet/api_final_yatube.git</code><br>
 
-```
-cd api_final_yatube
-```
+<code>cd <ваша_папка></code><br>
 
-Cоздать и активировать виртуальное окружение:
+Cоздать и активировать виртуальное окружение:<br>
 
-```
-python3 -m venv env
-```
+<code>python3 -m venv env</code><br>
 
-```
-source env/bin/activate
-```
+<code>source env/bin/activate</code><br>
 
-Установить зависимости из файла requirements.txt:
+Установить зависимости из файла requirements.txt:<br>
 
-```
-python3 -m pip install --upgrade pip
-```
+<code>python3 -m pip install --upgrade pip</code><br>
 
-```
-pip install -r requirements.txt
-```
+<code>pip install -r requirements.txt</code><br>
 
-Выполнить миграции:
+Выполнить миграции:<br>
 
-```
-python3 manage.py migrate
-```
+<code>python3 manage.py migrate</code><br>
 
-Запустить проект:
+Запустить проект:<br>
 
-```
-python3 manage.py runserver
-```
+<code>python3 manage.py runserver</code>
 
-### Примеры
-В проекте доступны типы запросов: **GET, POST, PATCH, PUT, DELETE**<br>
-*Некоторые примеры запросов к API:<br>*
-- В приведенном ниже примере мы пытаемся получить список всех публикаций
->GET
-```
-http://127.0.0.1:8000/api/v1/posts/
-```
-- При указании параметров *limit* и *offset* даётся возможность самостоятельно определять, какое число публикаций вернётся на страницу (параметр *limit*) и после какой по счёту публикации начать отсчёт (параметр *offset*)
->GET
-```
-http://127.0.0.1:8000/api/v1/posts/?limit=10&offset=5
-```
-- Получение публикации по id
->GET
-```
-http://127.0.0.1:8000/api/v1/posts/{id}/
-```
-- Добавление новой публикации в коллекцию публикаций. Анонимные запросы запрещены
->POST
-```
-http://127.0.0.1:8000/api/v1/posts/
-```
-REQUEST BODY SCHEMA: 
-application/json<br>
-{<br>
-`    `"text": "string",<br>
-`    `"image": "string",<br>
-`    `"group": 0<br>
+<h1>Описание</h1>
+Здесь вы можете совершать определенные действия с обьектами:<br>
+
+| Endpoint | Object | Methods | Description |
+| --- | --- | --- | --- |
+| /api/v1/posts/ | Post | GET, POST | Получаем список постов и создаем пост. |
+| /api/v1/posts/{id}/ | Post | GET, PUT, PATCH, DELETE | Получаем, редактируем, заменяем, отдельный пост. |
+| /api/v1/posts/{post_id}/comments/ | Comment | GET, POST | Получаем список комментариев и создаем комментарий к конкретному посту |
+| /api/v1/posts/{post_id}/comments/{id}/ | Comment | GET, PUT, PATCH, DELETE | Получаем, редактируем, заменяем, отдельный комментарий и конкретному посту. |
+| /api/v1/groups/ | Group | GET | Получаем список групп. Только чтоние |
+| /api/v1/groups/{id}/ | Group | GET | Получаем конкретную группу. Только чтоние |
+| /api/v1/follow/ | Follow | GET, POST | Получаем все подписки пользователя сделавшего GET запрос. Подписываемся на другого пользователя. Подписыватся на себя безсмысленно |
+| /api/v1/jwt/create/ | Token | POST | Получаем токен |
+| /api/v1/jwt/refresh/ | Token | POST | Обновляем токен |
+| /api/v1/jwt/verify/ | Token | POST | Проверяем токен |
+<h2>Примеры ответа</h2><br?
+*Используется гибкая пагинация*<br>
+ GET запрос<br>
+ /api/v1/posts/
+<pre><code>
+{
+  "count": 123,
+  "next": "http://api.example.org/accounts/?offset=400&limit=100",
+  "previous": "http://api.example.org/accounts/?offset=200&limit=100",
+  "results": [
+    {
+      "id": 0,
+      "author": "string",
+      "text": "string",
+      "pub_date": "2021-10-14T20:41:29.648Z",
+      "image": "string",
+      "group": 0
+    }
+  ]
 }
-- Удаление публикации по id. Удалить публикацию может только автор публикации. Анонимные запросы запрещены
->DELETE
-```
-http://127.0.0.1:8000/api/v1/posts/{id}/
-```
-- Получение всех комментариев к публикации
->GET
-```
-http://127.0.0.1:8000/api/v1/posts/{post_id}/comments/
-```
-- Получение комментария к публикации по id
->GET
-```
-http://127.0.0.1:8000/api/v1/posts/{post_id}/comments/{id}/
-```
-- Добавление нового комментария к публикации. Анонимные запросы запрещены
->POST
-```
-http://127.0.0.1:8000/api/v1/posts/{post_id}/comments/
-```
-REQUEST BODY SCHEMA: 
-application/json<br>
-{<br>
-`    `"text": "string"<br>
-}
-- Получение списка доступных сообществ
->GET
-```
-http://127.0.0.1:8000/api/v1/groups/
-```
-- Получение информации о сообществе по id
->GET
-```
-http://127.0.0.1:8000/api/v1/groups/{id}/
-```
-- Возвращает все подписки пользователя, сделавшего запрос. Анонимные запросы запрещены
->GET
-```
-http://127.0.0.1:8000/api/v1/follow/
-```
-- Подписка пользователя от имени которого сделан запрос на пользователя переданного в теле запроса. Анонимные запросы запрещены.
->POST
-```
-http://127.0.0.1:8000/api/v1/follow/
-```
+</code></pre>
 
-### Автор
-Надежда Осипова
+POST запрос<br>
+/api/v1/posts/
+<pre><code>
+{
+  "text": "string",
+  "image": "string",
+  "group": 0
+}
+</code></pre>
+Пример ответа.
+<pre><code>
+{
+  "id": 0,
+  "author": "string",
+  "text": "string",
+  "pub_date": "2022-09-21T19:57:45.329Z",
+  "image": "string",
+  "group": 0
+}
+</code></pre>
+_Остальные примеры запросов и ответов можно посмотреть в файле \api_final_yatube\yatube_api\static\redoc.yaml_ <br>
+**Спасибо что пользуетесь нашими сервисами!**
+>>>>>>> 8b664a98c17470cdc8217363e17a48deddb29612
+
+Установить зависимости из файла requirements.txt:<br>
+
+<code>python3 -m pip install --upgrade pip</code><br>
+
+<code>pip install -r requirements.txt</code><br>
+
+Выполнить миграции:<br>
+
+<code>python3 manage.py migrate</code><br>
+
+Запустить проект:<br>
+
+<code>python3 manage.py runserver</code>
+
+<h1>Описание</h1>
+Здесь вы можете совершать определенные действия с обьектами:<br>
+
+| Endpoint | Object | Methods | Description |
+| --- | --- | --- | --- |
+| /api/v1/posts/ | Post | GET, POST | Получаем список постов и создаем пост. |
+| /api/v1/posts/{id}/ | Post | GET, PUT, PATCH, DELETE | Получаем, редактируем, заменяем, отдельный пост. |
+| /api/v1/posts/{post_id}/comments/ | Comment | GET, POST | Получаем список комментариев и создаем комментарий к конкретному посту |
+| /api/v1/posts/{post_id}/comments/{id}/ | Comment | GET, PUT, PATCH, DELETE | Получаем, редактируем, заменяем, отдельный комментарий и конкретному посту. |
+| /api/v1/groups/ | Group | GET | Получаем список групп. Только чтоние |
+| /api/v1/groups/{id}/ | Group | GET | Получаем конкретную группу. Только чтоние |
+| /api/v1/follow/ | Follow | GET, POST | Получаем все подписки пользователя сделавшего GET запрос. Подписываемся на другого пользователя. Подписыватся на себя безсмысленно |
+| /api/v1/jwt/create/ | Token | POST | Получаем токен |
+| /api/v1/jwt/refresh/ | Token | POST | Обновляем токен |
+| /api/v1/jwt/verify/ | Token | POST | Проверяем токен |
+<h2>Примеры ответа</h2><br?
+*Используется гибкая пагинация*<br>
+ GET запрос<br>
+ /api/v1/posts/
+<pre><code>
+{
+  "count": 123,
+  "next": "http://api.example.org/accounts/?offset=400&limit=100",
+  "previous": "http://api.example.org/accounts/?offset=200&limit=100",
+  "results": [
+    {
+      "id": 0,
+      "author": "string",
+      "text": "string",
+      "pub_date": "2021-10-14T20:41:29.648Z",
+      "image": "string",
+      "group": 0
+    }
+  ]
+}
+</code></pre>
+
+POST запрос<br>
+/api/v1/posts/
+<pre><code>
+{
+  "text": "string",
+  "image": "string",
+  "group": 0
+}
+</code></pre>
+Пример ответа.
+<pre><code>
+{
+  "id": 0,
+  "author": "string",
+  "text": "string",
+  "pub_date": "2022-09-21T19:57:45.329Z",
+  "image": "string",
+  "group": 0
+}
+</code></pre>
+_Остальные примеры запросов и ответов можно посмотреть в файле \api_final_yatube\yatube_api\static\redoc.yaml_ <br>
+**Спасибо что пользуетесь нашими сервисами!**
