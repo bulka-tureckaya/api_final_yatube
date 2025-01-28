@@ -1,100 +1,112 @@
-# api_final_yatube
+# api_yatube
+API для сервиса yatube. Позволяет запрашивать данные о постах, группах и комментариях в социальной сети Yatube, а также управлять ими.
+## Технологии
+Python 3.8, Django 3.2, DRF, JWT + Djoser
+## Как запустить
+1. Клонируем репозиторий и переходим в него в командной строке
 
-### Описание:
+```
+git clone https://github.com/QuiShimo/api_final_yatube.git
+```
 
-Финальная часть учебного проекта социальной сети, в которой есть возможность публиковать записи, комментировать их и подписываться/отписываться от авторов.
+```
+cd api_final_yatube
+```
 
-### Технологии:
+2. Создаем и активируем виртуальное окружение
 
-Python 3.7, Django 2.2, DRF, JWT
+```
+python -m venv env
+```
 
-### Как запустить проект:
+```
+source env/Scripts/activate
+```
 
-Клонируй репозиторий и перейди в него в командной строке:
+3. Устанавливаем необходимые зависимости из requirements
 
-```git clone https://github.com/sergeypatrakov/api_final_yatube```
+```
+pip install -r requirements.txt
+```
 
-``` cd api_final_yatube```
+4. Делаем миграции
 
-Cоздай и активируй виртуальное окружение:
+```
+python yatube_api/manage.py migrate
+```
 
-```python3 -m venv venv```
+5. Запускаем проект
 
-* Если у тебя Linux/macOS
+```
+python yatube_api/manage.py runserver
+```
+## Примеры работы с API для всех пользователей
+Для неавторизованных пользователей работа с API доступна только в режиме чтения.
+- Получить список всех публикаций:
+```
+GET api/v1/posts/
+```
+При указании параметров limit и offset выдача будет работать с пагинацией.
+- Получение публикации по id:
+``` 
+GET api/v1/posts/{id}/
+```
+- Получение списка доступных сообществ:
+```
+GET api/v1/groups/
+```
+- Получение информации о сообществе по id:
+```
+GET api/v1/groups/{id}/
+```
+- Получение всех комментариев к публикации
+```
+GET api/v1/{post_id}/comments/
+``` 
+- Получение комментария к публикации по id:
+```
+GET api/v1/{post_id}/comments/{id}/
+```
+## Примеры работы с API для авторизованных пользователей
+- Создание публикации:
+``` 
+POST /api/v1/posts/
+```
+тело запроса:
+```
+{
+"text": "string",
+"image": "string",
+"group": 0
+}
+```
+- Обновление публикации:
+```
+PUT /api/v1/posts/{id}/
+```
+тело запроса:
+```
+{
+"text": "string",
+"image": "string",
+"group": 0
+}
+```
 
-    ```source venv/bin/activate```
+- Частичное обновление публикации:
+```
+PATCH /api/v1/posts/{id}/
+```
+тело запроса
+```
+{
+"text": "string",
+"image": "string",
+"group": 0
+}
+```
 
-* Если у тебя windows
-
-    ```source env/scripts/activate```
-
-```python3 -m pip install --upgrade pip```
-
-Установи зависимости из файла requirements.txt:
-
-```pip install -r requirements.txt```
-
-Выполни миграции:
-
-```python3 manage.py migrate```
-
-Запусти проект:
-
-```python3 manage.py runserver```
-
-Наслаждайся)
-
-### Автор:
-
-[Сергей Патраков](https://github.com/sergeypatrakov)
-
-____
-
-# api_final_yatube
-
-### Description:
-
-The final part of the Yandex.Practicum education project. Social network, in which it is possible to publish entries, comment on them and subscribe / unsubscribe from the authors.
-
-### Tech:
-
-Python 3.7, Django 2.2, DRF, JWT
-
-### Installation instructions:
-
-Clone the repository and go to the command line:
-
-```git clone https://github.com/sergeypatrakov/api_final_yatube```
-
-```cd api_final_yatube```
-
-Create and activate a virtual environment:
-
-```python 3 -m venv venv```
-
-* If you have Linux/mac OS
-
-    ```source venv/bin/activate```
-
-* If you have windows
-
-    ```source env/scripts/activate```
-    ```python3 -m pip install --upgrade pip```
-
-Install the dependencies from the file requirements.txt:
-
-```pip install -r requirements.txt```
-
-Perform migrations:
-
-```python3 manage.py migrate```
-
-Launch the project:
-
-```python3 manage.py runserver```
-
-Enjoy)
-
-### Author
-
-[Sergey Patrakov](https://github.com/sergeypatrakov)
+- Удаление публикации:
+```
+DEL /api/v1/posts/{id}/
+```
