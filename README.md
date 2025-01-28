@@ -1,100 +1,49 @@
-# api_final_yatube
+# Описание проекта api_final.
 
-### Описание:
+Проект api_final - это реализация API для проекта yatube.
 
-Финальная часть учебного проекта социальной сети, в которой есть возможность публиковать записи, комментировать их и подписываться/отписываться от авторов.
+В проекте api_final использованы вьюсеты, для аутентификации испльзуются JWT-токены.
 
-### Технологии:
+Для неаутентифицированных пользователей доступ к API только в формате чтения, кроме — /follow/.
 
-Python 3.7, Django 2.2, DRF, JWT
+Аутентифицированные пользователи могут изменять и удалять собственный контент, иначе доступ только в формате чтения.
 
-### Как запустить проект:
+# Установка, как локально развернуть проект.
 
-Клонируй репозиторий и перейди в него в командной строке:
+Клонировать репозиторий, создать и активировать виртуальное окружение:
 
-```git clone https://github.com/sergeypatrakov/api_final_yatube```
+```
+python -m venv venv
+```
 
-``` cd api_final_yatube```
+```
+source venv/scripts/activate
+```
 
-Cоздай и активируй виртуальное окружение:
+Установить зависимости из файла requirements.txt:
 
-```python3 -m venv venv```
+```
+python pip install -r requirements.txt
+```
 
-* Если у тебя Linux/macOS
+Выполнить миграции:
 
-    ```source venv/bin/activate```
+```
+python manage.py migrate
+```
 
-* Если у тебя windows
+Запустить проект:
 
-    ```source env/scripts/activate```
+```
+python manage.py runserver
+```
 
-```python3 -m pip install --upgrade pip```
+# Примеры
 
-Установи зависимости из файла requirements.txt:
+Для доступа к API необходимо получить токен, передав токен можно будет обращаться к методам, например: /api/v1/posts/ (GET, POST, PUT, PATCH, DELETE)
 
-```pip install -r requirements.txt```
+# Технологии
+Python 3.7, Django 2.2.19, Django Rest Framework 3.12.4
 
-Выполни миграции:
-
-```python3 manage.py migrate```
-
-Запусти проект:
-
-```python3 manage.py runserver```
-
-Наслаждайся)
-
-### Автор:
-
-[Сергей Патраков](https://github.com/sergeypatrakov)
-
-____
-
-# api_final_yatube
-
-### Description:
-
-The final part of the Yandex.Practicum education project. Social network, in which it is possible to publish entries, comment on them and subscribe / unsubscribe from the authors.
-
-### Tech:
-
-Python 3.7, Django 2.2, DRF, JWT
-
-### Installation instructions:
-
-Clone the repository and go to the command line:
-
-```git clone https://github.com/sergeypatrakov/api_final_yatube```
-
-```cd api_final_yatube```
-
-Create and activate a virtual environment:
-
-```python 3 -m venv venv```
-
-* If you have Linux/mac OS
-
-    ```source venv/bin/activate```
-
-* If you have windows
-
-    ```source env/scripts/activate```
-    ```python3 -m pip install --upgrade pip```
-
-Install the dependencies from the file requirements.txt:
-
-```pip install -r requirements.txt```
-
-Perform migrations:
-
-```python3 manage.py migrate```
-
-Launch the project:
-
-```python3 manage.py runserver```
-
-Enjoy)
-
-### Author
-
-[Sergey Patrakov](https://github.com/sergeypatrakov)
+# Авторы
+Марина Чухарева
