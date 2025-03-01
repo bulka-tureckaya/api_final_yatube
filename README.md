@@ -21,7 +21,7 @@ Yatube - это социальная сеть, а проект "API для Yatub
 
 Клонируйте репозиторий и перейдите в папку проекта:
 
-`git clone https://github.com/apolwow/api_final_yatube.git`
+`git clone https://github.com/bulka_tureckaya/api_final_yatube.git`
 
 `cd api_final_yatube`
 
